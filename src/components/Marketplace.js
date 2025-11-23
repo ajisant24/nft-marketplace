@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
+// Use browser `window.ethers` provided by UMD script in `public/index.html`
 
 function Marketplace({ nftContract, marketplaceContract, account, loading, setLoading }) {
   const [listings, setListings] = useState([]);
@@ -88,7 +88,7 @@ function Marketplace({ nftContract, marketplaceContract, account, loading, setLo
               />
               <div className="nft-info">
                 <p className="token-id">Token ID: #{listing.tokenId.toString()}</p>
-                <p className="price">💎 {ethers.formatEther(listing.price)} ETH</p>
+                <p className="price">💎 {window.ethers.formatEther(listing.price)} ETH</p>
                 <p className="seller">
                   Seller: {listing.seller.substring(0, 6)}...{listing.seller.substring(38)}
                 </p>

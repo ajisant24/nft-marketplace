@@ -3,11 +3,9 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
-
 contract Marketplace is ReentrancyGuard {
-    using Counters for Counters.Counter;
-    Counters.Counter private _listingIds;
+    // Using a simple uint256 counter instead of OpenZeppelin Counters (v5 removed Counters.sol)
+    uint256 private _listingIds;
     
     uint256 public platformFee = 250; // 2.5%
     address payable public feeRecipient;
@@ -59,8 +57,8 @@ contract Marketplace is ReentrancyGuard {
             "Marketplace not approved"
         );
 
-        _listingIds.increment();
-        uint256 listingId = _listingIds.current();
+        _listingIds += 1;
+        uint256 listingId = _listingIds;
 
         listings[listingId] = Listing({
             listingId: listingId,
@@ -118,7 +116,7 @@ contract Marketplace is ReentrancyGuard {
     }
 
     function getAllListings() external view returns (Listing[] memory) {
-        uint256 total = _listingIds.current();
+        uint256 total = _listingIds;
         uint256 activeCount = 0;
 
         for (uint256 i = 1; i <= total; i++) {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ethers } from 'ethers';
+// Use browser `window.ethers` provided by UMD script in `public/index.html`
 
 function ListNFT({ nftContract, marketplaceContract, contractAddress, account, loading, setLoading }) {
   const [tokenId, setTokenId] = useState('');
@@ -33,7 +33,7 @@ function ListNFT({ nftContract, marketplaceContract, contractAddress, account, l
 
       // List NFT
       setStatus('Creating listing...');
-      const priceInWei = ethers.parseEther(price);
+      const priceInWei = window.ethers.parseEther(price);
       const tx = await marketplaceContract.listNFT(
         contractAddress.NFT,
         tokenId,

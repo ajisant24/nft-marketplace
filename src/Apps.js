@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
+// Use the browser UMD build available as `window.ethers` to avoid bundling node-only modules
 import Header from './components/Header';
 import MintNFT from './components/MintNFT';
 import MyNFTs from './components/MyNFTs';
@@ -8,7 +8,7 @@ import Marketplace from './components/Marketplace';
 import NFTContract from './contracts/NFT.json';
 import MarketplaceContract from './contracts/Marketplace.json';
 import contractAddress from './contracts/contract-address.json';
-import './App.css';
+import './Apps.css';
 
 function App() {
   const [account, setAccount] = useState('');
@@ -31,7 +31,7 @@ function App() {
           method: 'eth_requestAccounts' 
         });
         
-        const provider = new ethers.BrowserProvider(window.ethereum);
+        const provider = new window.ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
         const network = await provider.getNetwork();
 
@@ -47,13 +47,13 @@ function App() {
         setSigner(signer);
 
         // Initialize contracts
-        const nft = new ethers.Contract(
+        const nft = new window.ethers.Contract(
           contractAddress.NFT,
           NFTContract.abi,
           signer
         );
 
-        const marketplace = new ethers.Contract(
+        const marketplace = new window.ethers.Contract(
           contractAddress.Marketplace,
           MarketplaceContract.abi,
           signer

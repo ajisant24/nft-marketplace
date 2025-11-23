@@ -1,0 +1,316 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.App {
+  min-height: 100vh;
+  padding-bottom: 50px;
+}
+
+/* Header */
+.header {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  color: #667eea;
+  font-size: 28px;
+}
+
+.account-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f0f0f0;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+.account-label {
+  color: #666;
+  font-size: 14px;
+}
+
+.account-address {
+  color: #333;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Sections */
+.section {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  margin: 20px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+  color: #333;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #667eea;
+  font-size: 24px;
+}
+
+/* Forms */
+.form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.form input {
+  flex: 1;
+  min-width: 200px;
+  padding: 14px 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s;
+}
+
+.form input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Buttons */
+button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+button.own-listing {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* NFT Grid */
+.nft-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.nft-card {
+  background: #fafafa;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s;
+  border: 2px solid #e0e0e0;
+}
+
+.nft-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  border-color: #667eea;
+}
+
+.nft-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+.nft-info {
+  padding: 20px;
+}
+
+.nft-info p {
+  margin: 8px 0;
+  color: #333;
+}
+
+.token-id {
+  font-weight: 600;
+  color: #667eea;
+  font-size: 16px;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #2ecc71;
+  margin: 12px 0 !important;
+}
+
+.seller {
+  font-size: 12px;
+  color: #666;
+  font-family: monospace;
+}
+
+.nft-card button {
+  width: 100%;
+  margin-top: 15px;
+}
+
+/* Status Messages */
+.status-message {
+  margin-top: 15px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.hint {
+  margin-top: 10px;
+  color: #666;
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* Empty States */
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+  font-size: 16px;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #667eea;
+  font-size: 16px;
+}
+
+/* Connect Wallet Screen */
+.connect-wallet,
+.network-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
+}
+
+.connect-wallet h1,
+.network-error h2 {
+  color: white;
+  font-size: 48px;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.connect-wallet p,
+.network-error p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.connect-wallet button,
+.network-error button {
+  padding: 18px 40px;
+  font-size: 18px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .form {
+    flex-direction: column;
+  }
+
+  .form input {
+    min-width: 100%;
+  }
+
+  .nft-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .connect-wallet h1,
+  .network-error h2 {
+    font-size: 32px;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  animation: fadeIn 0.5s ease-out;
+}

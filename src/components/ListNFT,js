@@ -1,0 +1,87 @@
+import React, { useState } from 'react';
+import { ethers } from 'ethers';
+
+function ListNFT({ nftContract, marketplaceContract, contractAddress, account, loading, setLoading }) {
+  const [tokenId, setTokenId] = useState('');
+  const [price, setPrice] = useState('');
+  const [status, setStatus] = useState('');
+
+  const listNFT = async () => {
+    if (!tokenId || !price) {
+      alert('Please enter token ID and price');
+      return;
+    }
+
+    setLoading(true);
+    setStatus('Listing NFT...');
+
+    try {
+      // Check if approved
+      const isApproved = await nftContract.isApprovedForAll(
+        account,
+        contractAddress.Marketplace
+      );
+
+      if (!isApproved) {
+        setStatus('Approving marketplace...');
+        const approveTx = await nftContract.setApprovalForAll(
+          contractAddress.Marketplace,
+          true
+        );
+        await approveTx.wait();
+      }
+
+      // List NFT
+      setStatus('Creating listing...');
+      const priceInWei = ethers.parseEther(price);
+      const tx = await marketplaceContract.listNFT(
+        contractAddress.NFT,
+        tokenId,
+        priceInWei
+      );
+      
+      setStatus('Transaction sent. Waiting for confirmation...');
+      await tx.wait();
+
+      setStatus('✅ NFT listed successfully!');
+      setTokenId('');
+      setPrice('');
+      
+      setTimeout(() => setStatus(''), 3000);
+    } catch (error) {
+      console.error('Error listing NFT:', error);
+      setStatus('❌ Error listing NFT');
+      setTimeout(() => setStatus(''), 3000);
+    }
+    
+    setLoading(false);
+  };
+
+  return (
+    <section className="section">
+      <h2>💰 List NFT for Sale</h2>
+      <div className="form">
+        <input
+          type="number"
+          placeholder="Token ID"
+          value={tokenId}
+          onChange={(e) => setTokenId(e.target.value)}
+          disabled={loading}
+        />
+        <input
+          type="text"
+          placeholder="Price in ETH (e.g., 0.01)"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          disabled={loading}
+        />
+        <button onClick={listNFT} disabled={loading}>
+          {loading ? 'Listing...' : 'List NFT'}
+        </button>
+      </div>
+      {status && <p className="status-message">{status}</p>}
+    </section>
+  );
+}
+
+export default ListNFT;
